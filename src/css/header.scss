@@ -1,0 +1,17 @@
+header{
+    background: rgb(138,138,138);
+    background: linear-gradient(0deg, rgba(141, 141, 141, 0.174) 4%, rgba(255, 255, 255, 0.958) 22%);
+    cursor: pointer;
+    filter: none;
+    transition: filter .1s ease;
+    &:hover{
+        filter: grayscale(200%);
+        &>.header_button{
+            filter: none;
+        }
+    }
+    
+    & > .header_button :hover{
+        background-color: rgb(236, 234, 234) !important;
+    }
+}
