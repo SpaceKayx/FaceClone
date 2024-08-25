@@ -13,11 +13,11 @@ import { IoNotifications } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
 import "../css/nav.scss"
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TiWeatherPartlySunny } from "react-icons/ti";
-
-  
-
+import { Button } from 'react-bootstrap';
+import Cookies from 'js-cookie'
+import Swal from 'sweetalert2';
 
 
 const icons =
@@ -36,7 +36,6 @@ const icons =
   },
   {
     // icon:      <VscGame size={30} />,
-    
     icon:      <IoPeopleCircle size={30} />,
     href: "/people"
   }
@@ -44,9 +43,27 @@ const icons =
 
 const Navbars = () => {
   const [checkedDiv, setCheckedDiv] = useState();
+  const navigate = new useNavigate()
+
   function handleClickedIcon(index) {
       setCheckedDiv(index)
   }
+  function handleLogout() {
+    Cookies.remove("FaceClone")
+    Swal.fire({
+      title: "Đăng xuất thành công",
+      icon: "success"
+    }); 
+    navigate("/login")
+    // logout()
+    // .then(resp =>{
+    //   console.log(resp);
+    // })
+    // .catch(error =>{
+    //   console.log(error);
+    // })
+  }
+
   return (
     <Navbar expand="lg" className="fixed border-b shadow-slate-900 sticky-top mb-2 bg-white">
       <Container fluid className='justify-between nav_container'>
@@ -86,7 +103,7 @@ const Navbars = () => {
         <div className='flex flex-wrap gap-1 nav_center' >
           {
             icons.map((value, index) =>
-              <Link to={value.href}>
+              <Link to={value.href} key={value.href}>
                 <div className={`p-2 w-[7rem] flex rounded justify-center align-center ${checkedDiv === index
                     ? 'bg-blue-400 text-dark border-b-4'
                     : 'text-dark'
@@ -109,8 +126,8 @@ const Navbars = () => {
             <IoNotifications size={25} />
 
           </div>
-          <NavDropdown className='accountNav p-[10px] w-full border ms-1 rounded-full bg-slate-100'>
-            <MdAccountCircle size={23} />
+          <NavDropdown className='p-[10px] me-5 w-full border ms-1 rounded-full bg-slate-100'>
+            <Button className='' onClick={handleLogout}>Đăng xuất</Button>
           </NavDropdown >
         </div>
       </Container>

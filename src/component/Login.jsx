@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom';
-import {selectByUsername} from '../service/LoginService';
+import { selectByUsername } from '../service/LoginService';
+import Cookies from 'js-cookie';
 
 const Login = () => {
     const [username, setUsername] = useState('')
@@ -24,50 +25,46 @@ const Login = () => {
             title: message,
             icon: status
         });
-        
+
     }
 
-    function handleOnSubmit(e) {
+    async function handleOnSubmit(e) {
         e.preventDefault()
-        // var formData = new FormData();
-        // formData.append('key1', 'value1');
-        // formData.append('key2', 'value2');
-        
-        // // Display the key/value pairs
-        // for(var pair of formData.entries()) {
-        //    console.log(pair[0]+ ', '+ pair[1]); 
-        // }
         const account =
         {
-            username,
-            password
+            username: username,
+            password: password
         }
         console.table(account);
         const formDataObj = new FormData();
-        
-        formDataObj.append("username", "space.kayx")
-        formDataObj.append("password", "1234")
+
+        formDataObj.append("username", account.username)
+        formDataObj.append("password", account.password)
         console.log(formDataObj);
         formDataObj.forEach(element => {
             console.log(element);
         });
         console.log(formDataObj instanceof FormData);
-        selectByUsername(formDataObj)
-        .then((resp) => {
-            // resp.data
-            console.log(resp);
-            // if(resp.data.password == account.password) {
-                notify("Đăng nhập thành công", "success")
-                navigate("/")
-            // }
-            // else{
-            //     setError('Vui lòng kiểm tra thông tin đăng nhập !!')
-            // }
-        })
-        .catch(error => 
-            console.log(error),
-            setError('Vui lòng kiểm tra thông tin đăng nhập !!')
-        )
+        await selectByUsername(formDataObj)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(`HTTP error ${response.status}`);
+                }
+            })
+            .then((data) => {
+                console.log('Response Data:', data);
+                Cookies.set("FaceClone", data.responseToken, {expires: 7})
+                notify("Đăng nhập thành công", "success");
+                setTimeout(() => {
+                    navigate("/");
+                }, 3000);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                setError('Vui lòng kiểm tra thông tin đăng nhập !!');
+            });
     }
     return (
         <div>
@@ -80,7 +77,7 @@ const Login = () => {
 
                     </p>
 
-                    <form action="/signin" method='post' className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+                    <form className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
                         <p className="text-center text-lg font-medium">Đăng nhập</p>
 
                         <div>
@@ -89,7 +86,7 @@ const Login = () => {
                             <div className="relative">
                                 <input
                                     type="text"
-                                    onChange={(e) => {setUsername(e.target.value)}}
+                                    onChange={(e) => { setUsername(e.target.value) }}
                                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                     placeholder="Tên đăng nhập"
                                 />

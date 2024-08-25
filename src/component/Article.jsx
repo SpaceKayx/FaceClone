@@ -6,48 +6,10 @@ import { img } from '../image';
 import { CiWifiOn } from "react-icons/ci";
 import "../css/article.scss"
 
-// function createEntity() {
-//     let name = document.getElementById()
-//     alert("hihi cc")
-// }
-
-// function showName(firstName, lastName) {
-//     return "Hello " + lastName + " " + firstName + ", wellcome to ReactJs !!"
-// }
-
-// const people = {
-//     firstName: "D",
-//     lastName: "N"
-// }
-
-// const peoples = [
-//     {
-//         name: "Dat",
-//         age: 10
-//     }, {
-//         name: "B",
-//         age: 11
-//     }, {
-//         name: "C",
-//         age: 12
-//     }
-// ]
-
-// var myCard = new Car("Đạt", "BMW");
-
-const Article = () => {
-
-    // const[people, setPeople] = useState({})
-    // const[peoples, setPeoples] = useState([]);
-    
-    // onChange={(e) => setPeople({...people, name: e.target.value})} 
-
-    // const handleOnSubmit = (e) => {
-    //     e.preventDefault()
-    //     setPeoples([...peoples, people])
-    //     console.log(peoples)
-    // }
-
+const Article = ({props}) => {
+    const {account} = props
+    console.log(account, "Article");
+   
     return (
         <article className="col-6 mt-2" >
             <Card className='mb-3'>
@@ -55,11 +17,11 @@ const Article = () => {
                 <Card.Body className='relative'>
                     <Card.Title className='flex mb-3'>
                         <IoHomeOutline size={25} className='me-2'/>
-                        Sống tại Thành phố Hồ Chí Minh
+                        {account.address}
                     </Card.Title>
                     <Card.Title className='flex mb-3'>
                         <FaHeart size={25} className='me-2'/>
-                        Độc thân
+                        {account.married ? "Kết hôn" : "Độc thân"}
                     </Card.Title>
                     <Card.Title className='flex mb-3'>
                         <CiWifiOn size={25} className='me-2'/>
@@ -78,8 +40,8 @@ const Article = () => {
                 </Card.Title>
                 <div className='flex flex-wrap w-full gap-2 ms-[1.3rem]'>
                     {
-                        img.map((value) =>
-                            <div className='!w-[12rem] !h-[12rem]'>
+                        img.map((value, index) =>
+                            <div className='!w-[12rem] !h-[12rem]' key={index}>
                                 <Card.Img src={value} className='h-full object-cover'></Card.Img>
                             </div>
                         )

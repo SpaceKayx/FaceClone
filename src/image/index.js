@@ -14,5 +14,5 @@ const img =
     H4,
     H5
 ]
-
 export { img } 
+export default H1

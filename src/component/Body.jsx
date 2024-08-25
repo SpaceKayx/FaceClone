@@ -4,12 +4,15 @@ import Article from './Article'
 import Aside from './Aside'
 import "../css/body.scss"
 
-const Section = () => {
+const Section = ({props}) => {
+ 
+  const {account} = props
+
   return (
     <Container>
         <div className='row flex body_jsx'>
-            <Article/>
-            <Aside/>
+            <Article props={{account}}/>
+            <Aside props={{account}}/>
         </div>
     </Container >
   )

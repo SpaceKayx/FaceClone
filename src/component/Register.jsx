@@ -21,7 +21,8 @@ const Register = () => {
             showPassword.setAttribute('type', 'password')
     }
     function handleOnSubmit() {
-        if (password.pass === password.confirmPassword) {
+        console.log(0);
+        if (password.pass == password.confirmPassword) {
             const account = {
                 lastName,
                 firstName,
@@ -30,6 +31,7 @@ const Register = () => {
                 password: password.confirmPassword,
                 gender
             }
+            console.log(2);
             createAccount(account).then((resp) =>{
                 console.log(resp);
                 const success = Swal.fire({
@@ -229,6 +231,7 @@ const Register = () => {
 
                         <p className="text-center text-sm text-gray-500">
                             Bạn đã có tài khoản ?
+                            {/* <Link */}
                             <a className="underline" href="#">Đăng nhập</a>
                         </p>
                     </form>

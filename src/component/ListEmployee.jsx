@@ -12,15 +12,29 @@ const ListEmployee = () => {
          getAllEmployee()
     },[])
 
-    const getAllEmployee = async () => {
-        await listEmployees().then((response) =>{
-            console.log(response.data);
+    const getAllEmployee = () => {
+         listEmployees().then((response) =>{
+            console.log(response);
             setEmployees(response.data)
         }).catch(error =>{
-            console.error(error);
+            console.log(error);
         })
+        listEmployees()
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    throw new Error(`HTTP error ${response.status}`);
+                }
+            })
+            .then((data) => {
+                console.log('Response Data:', data);
+            })
+            .catch((error) => {
+                console.log('Error:', error);
+            });
     }
-
+    console.log(employees);
     const navigate = new useNavigate()
     function addEmployee()
     {
@@ -52,7 +66,7 @@ const ListEmployee = () => {
                 <tbody className="divide-y divide-gray-200">
                     {
                         employees.map((value) =>
-                            <tr className="odd:bg-gray-50">
+                            <tr className="odd:bg-gray-50" key={value.id}>
                                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{value.id}</td>
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700">{value.username}</td>
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700">{value.password}</td>
@@ -62,7 +76,6 @@ const ListEmployee = () => {
                                 <td className="flex gap-2 px-4 py-2">
                                     <Button onClick={() => navigate(`/update-employee/${value.id}`)}>Update</Button>
                                     <Button onClick={() => removeEmployee(value.id)} className='bg-danger'>Delete</Button>
-
                                 </td>
                             </tr>
                         )

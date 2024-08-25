@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Card from 'react-bootstrap/esm/Card';
 import { MdAccountCircle } from "react-icons/md";
 import { FaPen } from "react-icons/fa";
@@ -7,7 +7,9 @@ import { GoPlus } from "react-icons/go";
 import '../css/section.scss'
 import { img } from '../image';
 import Button from 'react-bootstrap/esm/Button';
-const Section = () => {
+const Section = ({props}) => {
+    const myAccount = props.account;
+    console.dir(myAccount);
     return (
         <section className='bg-white'>
             <section className='flex justify-between w-full h-[10rem] rounded border-bottom'>
@@ -18,12 +20,12 @@ const Section = () => {
                     <div className='content'>
                         <Card style={{ width: '18rem' }} className='border-0'>
                             <Card.Body className='mt-3'>
-                                <Card.Title className=''>Hằng Hằng</Card.Title>
+                                <Card.Title className=''>{myAccount.firstName + ' ' + myAccount.lastName}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">83 bạn bè</Card.Subtitle>
                                 <div className='flex'>
                                     {
                                         img.map((value) =>
-                                            <div className=' !w-[2.5rem] !h-[2.6rem]'>
+                                            <div className=' !w-[2.5rem] !h-[2.6rem]' key={value}>
                                                 <Card.Img src={value} className='!rounded-full w-full h-full object-cover' />
                                             </div>
                                         )
@@ -80,10 +82,10 @@ const Section = () => {
                                 Thể thao
                             </button>
                             <select className="rounded-md my-2 border-gray-200">
-                                <option>Xem thêm</option>
-                                <option>Messages</option>
-                                <option>Archive</option>
-                                <option select>Notifications</option>
+                                <option value={'More'}>Xem thêm</option>
+                                <option value={'Message'}>Message</option>
+                                <option value={'Archive'}>Archive</option>
+                                <option value={'Notifications'}>Notifications</option>
                             </select>
                         </nav>
                     </div>

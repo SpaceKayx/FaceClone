@@ -7,15 +7,19 @@ import Weather from './component/Weather'
 import Home from './component/Home'
 import ListEmployee from './component/ListEmployee';
 import EmployeeComponent from './component/EmployeeComponent';
-import Video from './component/Video';
 import AuthPage from './pages/LoginPage';
 import LayoutPage from './pages/LayoutPage';
 import RegisterPage from './pages/RegisterPage';
+import Video from './component/Video';
+import PaymentStatus from './component/PaymentStatus';
+import { useState } from 'react';
+import Swal from 'sweetalert2';
 function App() {
   const pageTitle = () =>{
     document.title = 'FaceClone'
   }
   pageTitle()
+   
   return (
     <>
         <Routes>
@@ -28,10 +32,9 @@ function App() {
             <Route path='/add-employee' element={<EmployeeComponent/>}/>
             <Route path='/update-employee/:id' element={<EmployeeComponent/>}/>
             <Route path='/video' element={<Video/>} />
+            <Route path='/booking/payment-status' element={<PaymentStatus/>} />
           </Route>
         </Routes>
-    
-   
     </>
   )
 }
