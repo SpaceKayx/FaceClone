@@ -7,13 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.config.dto.AccountCommentDTO;
 import com.config.dto.AccountDTO;
@@ -70,9 +64,10 @@ public class AccountController {
 		AccountPosterDTO poster = posterService.createPoster(posterDTO);
 		return new ResponseEntity<>(posterDTO, HttpStatus.CREATED);
 	}
-	@DeleteMapping("/poster/deletePoster")
-	public ResponseEntity<HttpStatus> deletePoster(@RequestBody long posterId)
+	@DeleteMapping("/poster/deletePoster/{posterId}")
+	public ResponseEntity<HttpStatus> deletePoster(@PathVariable long posterId)
 	{
+		System.out.println("posterId: " +posterId);
 		posterService.deletePoster(posterId);
 		return ResponseEntity.ok(HttpStatus.OK);
 	}
@@ -81,6 +76,7 @@ public class AccountController {
 	public ResponseEntity<AccountLikeDTO> isLike(@RequestBody RequestBodyLikeDTO likeDTO)
 	{
 		System.out.println("like");
+		System.out.println("likeDTO: " +likeDTO);
 		AccountLikeDTO isLike = likeService.acctionLike(likeDTO);
 		return ResponseEntity.ok(isLike);
 	}

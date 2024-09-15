@@ -50,10 +50,10 @@ public class AccountPosterImpl implements AccountPosterService{
 	}
 
 	@Override
-	public void deletePoster(long posterId) {
-		// TODO Auto-generated method stub
+	public void deletePoster(Long posterId) {
+		System.out.println("deletePoster: " + posterId);
 		posterRepository.findById(posterId).orElseThrow(() -> new ResourceNotFoundException("Poster Id not found: " +posterId));
-		posterRepository.deleteById(posterId);
+		posterRepository.deleteById((long) posterId);
 	}
 
 }

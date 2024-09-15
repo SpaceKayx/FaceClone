@@ -37,8 +37,8 @@ public class AccountPosterMapper
 				account.getPosterId(), 
 				account.getDescription(), 
 				account.getPremiereDate(),
-				account.getLike(), 
-				account.getComment(), 
+				account.getAccountLike(),
+				account.getAccountComment(),
 				account.getAccountImage(), 
 				account.getAccountId()
 				);

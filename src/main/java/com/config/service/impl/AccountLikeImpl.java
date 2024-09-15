@@ -34,12 +34,24 @@ public class AccountLikeImpl implements AccountLikeService{
 	@Override
 	public AccountLikeDTO acctionLike(RequestBodyLikeDTO likeDTO) {
 		// TODO Auto-generated method stub
-		Optional<AccountLike> isAccountLike = likeRepository.findByAccount(likeDTO.getAccountId(), likeDTO.getPosterId());
+		Optional<AccountLike> isAccountLike =
+				likeRepository.findByAccount(likeDTO.getAccountId(),
+												likeDTO.getPosterId());
+//		System.out.println("isAccountLike: " +isAccountLike.get().getAccountLikeId());
 		if(isAccountLike.isPresent())
 		{
-			System.out.println("deleteLike");
-			deleteLike(isAccountLike.get());
-			return null;
+			try {
+				System.out.println("deleteLike");
+				System.out.println("deleteLike1: " +isAccountLike.get().getAccountLikeId());
+				System.out.println("deleteLike2: " +isAccountLike.get().getAccountPoster().getPosterId());
+				System.out.println("deleteLike3: " +isAccountLike.get().getAccount().getAccountId());
+				deleteLike(isAccountLike.get());
+				return null;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
 		}
 		return createLike(likeDTO);
 	}
@@ -58,12 +70,12 @@ public class AccountLikeImpl implements AccountLikeService{
 	@Override
 	public void deleteLike(AccountLike accountLike) {
 		// TODO Auto-generated method stub
-		AccountLike deleteLike = likeRepository.findById(accountLike.getAccountLike()).orElseThrow(() -> new ResourceNotFoundException("ID not found: " +accountLike.getAccountLike()));
-		System.out.println("deleteLike: " +deleteLike.getAccountLike());
-		likeRepository.delete(deleteLike);
+//		AccountLike deleteLike = likeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ID not found: " +id));
+//		System.out.println("deleteLike: " +deleteLike.getAccountLikeId());
+		System.out.println("id: " +accountLike);
+
+		likeRepository.delete(accountLike);
 		System.out.println("deleteLike is successfully");
 	}
 
-	
-	
 }

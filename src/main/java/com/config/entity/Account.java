@@ -68,12 +68,12 @@ public class Account {
 	
 	@Lazy
 	@JsonIgnore
-	@OneToMany(mappedBy = "accountId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "accountId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	List<AccountPoster> accountPoster;
 	
 
 	@Lazy
 	@JsonIgnore
-	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	List<AccountLike> accountLike;
 }

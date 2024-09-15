@@ -7,7 +7,7 @@ public class AccountLikeMapper {
 	public static AccountLikeDTO mapToAccountLikeDTO(AccountLike account)
 	{
 		return new AccountLikeDTO(
-				account.getAccountLike(),
+				account.getAccountLikeId(),
 				account.getAccountPoster(),
 				account.getAccount()
 				);

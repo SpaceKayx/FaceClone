@@ -29,7 +29,7 @@ public class AccountLike {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "AccountLikeId")
-	long accountLike;
+	long accountLikeId;
 	
 	@ManyToOne
 	@JsonIgnore

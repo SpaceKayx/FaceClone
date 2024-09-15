@@ -14,5 +14,5 @@ public interface AccountPosterService {
 	
 	AccountPosterDTO getPosterByPosterId(long posterId);
 	
-	void deletePoster(long posterId);
+	void deletePoster(Long posterId);
 }

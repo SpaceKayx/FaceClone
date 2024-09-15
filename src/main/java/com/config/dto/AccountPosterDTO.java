@@ -26,8 +26,8 @@ public class AccountPosterDTO {
 	long posterId;
 	String description;
 	Date premiereDate;
-	List<AccountLike> like;
-	List<AccountComment> comment;
+	List<AccountLike> accountLike;
+	List<AccountComment> accountComment;
 	List<AccountImage> accountImage;
 	Account accountId;
 	
