@@ -4,18 +4,18 @@ import { MdAccountCircle } from "react-icons/md";
 import { FaPen } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 
-import '../css/section.scss'
-import { img } from '../image';
+import '../../css/section.scss'
+import { img } from '../../image';
 import Button from 'react-bootstrap/esm/Button';
-const Section = ({props}) => {
-    const myAccount = props.account;
+const Section = ({ props }) => {
+    const myAccount = props.contents.data;
     console.dir(myAccount);
     return (
         <section className='bg-white'>
             <section className='flex justify-between w-full h-[10rem] rounded border-bottom'>
                 <div className='flex justify-between'>
                     <div className='account flex w-[17rem] h-full justify-center'>
-                        <MdAccountCircle size={200} color='gray'/>
+                        <MdAccountCircle size={200} color='gray' />
                     </div>
                     <div className='content'>
                         <Card style={{ width: '18rem' }} className='border-0'>

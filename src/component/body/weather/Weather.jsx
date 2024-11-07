@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFrown } from '@fortawesome/free-solid-svg-icons';
-import '../css/weather.css';
+import '../../../css/weather.css';
 
 function GfGWeatherApp() {
 	const [input, setInput] = useState('');

@@ -4,8 +4,43 @@ import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom';
 import { selectByUsername } from '../service/LoginService';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const Login = () => {
+
+    // const createPoster = (poster) => axios.post("http://localhost:8080/api/v1/appointment", poster);
+
+    // var data = []
+
+    // for (let i = 0; i < 1000; i++) {
+    //     data.push(
+    //         {
+    //             "id": i,
+    //             "name": "string" +i,
+    //             "appointmentDate": "2024-10-10",
+    //             "appointmentTime": "12:12:12",
+    //             "status": true,
+    //             "statusAccept": "string" +i,
+    //             "owner": {
+    //               "id": i+1,
+    //               "firstName": "string"+ i+1,
+    //               "lastName": "string"+ i+1,
+    //               "phoneNumber": "string"+ i+1,
+    //               "status": true
+    //             },
+    //             "appointmentServices": [
+    //               {
+    //                 "id": +i+2,
+    //                 "name": "string" +i+2
+    //               }
+    //             ]
+    //           }
+    //     )
+        
+    // }
+
+    // createPoster(data)
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')

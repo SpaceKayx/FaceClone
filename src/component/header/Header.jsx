@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/esm/Button';
 import { FaCamera } from "react-icons/fa";
-import '../css/header.scss'
+import '../../css/header.scss'
 import Container from 'react-bootstrap/esm/Container';
 const Header = () => {
   return (

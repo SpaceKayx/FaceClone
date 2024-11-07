@@ -1,6 +1,8 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+// import { ChevronDownIcon } from '@npm i heroicons/react/20/solid'
 
 import { FaFacebook } from "react-icons/fa";
 import { IoHomeOutline } from "react-icons/io5";
@@ -11,65 +13,67 @@ import { BiSolidCategory } from "react-icons/bi";
 import { FaFacebookMessenger } from "react-icons/fa6";
 import { IoNotifications } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
-import "../css/nav.scss"
+import "../../css/nav.scss"
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { Button } from 'react-bootstrap';
 import Cookies from 'js-cookie'
 import Swal from 'sweetalert2';
+import MessageComponent from '../message/Message';
 
 
 const icons =
-[
-  {
-    icon: <IoHomeOutline size={30}/>,
-    href: "/"
-  },
-  {
-    icon: <PiVideoLight size={30} />,
-    href: "/video"
-  },
-  {
-    icon: <TiWeatherPartlySunny size={32} />,
-    href: "/weather"
-  },
-  {
-    // icon:      <VscGame size={30} />,
-    icon:      <IoPeopleCircle size={30} />,
-    href: "/people"
-  }
-]
+  [
+    {
+      icon: <IoHomeOutline size={30} />,
+      href: "/"
+    },
+    {
+      icon: <PiVideoLight size={30} />,
+      href: "/video"
+    },
+    {
+      icon: <TiWeatherPartlySunny size={32} />,
+      href: "/weather"
+    },
+    {
+      // icon:      <VscGame size={30} />,
+      icon: <IoPeopleCircle size={30} />,
+      href: "/people"
+    }
+  ]
 
 const Navbars = () => {
   const [checkedDiv, setCheckedDiv] = useState();
+  const [showMessageComponent, setShowMessageComponent] = useState(false);
   const navigate = new useNavigate()
 
   function handleClickedIcon(index) {
-      setCheckedDiv(index)
+    setCheckedDiv(index)
   }
   function handleLogout() {
     Cookies.remove("FaceClone")
     Swal.fire({
       title: "Đăng xuất thành công",
       icon: "success"
-    }); 
+    });
     navigate("/login")
-    // logout()
-    // .then(resp =>{
-    //   console.log(resp);
-    // })
-    // .catch(error =>{
-    //   console.log(error);
-    // })
   }
+  const showMessage = () => {
+    setShowMessageComponent(true)
+    
+  }
+  const handleCloseChat = () => {
+    setShowMessageComponent(false);
+  };
 
   return (
     <Navbar expand="lg" className="fixed border-b shadow-slate-900 sticky-top mb-2 bg-white">
       <Container fluid className='justify-between nav_container'>
         <div className='ms-2 flex nav_left'>
           <Link to={"/"}>
-              <FaFacebook size={40} color='blue' />
+            <FaFacebook size={40} color='blue' />
           </Link>
           <div className="relative ms-4">
             <label htmlFor="Search" className="sr-only "> Search </label>
@@ -105,31 +109,49 @@ const Navbars = () => {
             icons.map((value, index) =>
               <Link to={value.href} key={value.href}>
                 <div className={`p-2 w-[7rem] flex rounded justify-center align-center ${checkedDiv === index
-                    ? 'bg-blue-400 text-dark border-b-4'
-                    : 'text-dark'
-                  }`}  onClick={() => handleClickedIcon(index)}>
-                    {value.icon}  
+                  ? 'bg-blue-400 text-dark border-b-4'
+                  : 'text-dark'
+                  }`} onClick={() => handleClickedIcon(index)}>
+                  {value.icon}
                 </div>
               </Link>
             )
           }
         </div>
-        <div className='flex'>
-          <div className='p-[10px] border ms-1 rounded-full bg-slate-100'>
+        <div className='flex space-x-2 items-center'>
+          {/* Category Icon */}
+          <div className='p-2 border rounded-full bg-slate-100 flex justify-center items-center'>
             <BiSolidCategory size={25} />
           </div>
-          <div className='p-[10px] border ms-1 rounded-full bg-slate-100'>
-            <FaFacebookMessenger size={25} />
 
+          {/* Messenger Dropdown */}
+          <div className='p-2 border rounded-full bg-slate-100 relative flex justify-center items-center'>
+            <details className="dropdown">
+              <summary className="m-0 flex items-center">
+                <FaFacebookMessenger size={25} />
+              </summary>
+              <ul className="menu dropdown-content bg-base-100 rounded-box z-50 w-52 p-2 shadow absolute right-0 top-full mt-2">
+                <li><button onClick={showMessage}>Show message</button></li>
+                <li><a href="#">Item 2</a></li>
+              </ul>
+            </details>
           </div>
-          <div className='p-[10px] border ms-1 rounded-full bg-slate-100'>
+
+          {/* Notification Icon */}
+          <div className='p-2 border rounded-full bg-slate-100 flex justify-center items-center'>
             <IoNotifications size={25} />
-
           </div>
-          <NavDropdown className='p-[10px] me-5 w-full border ms-1 rounded-full bg-slate-100'>
-            <Button className='' onClick={handleLogout}>Đăng xuất</Button>
-          </NavDropdown >
+
+          {/* Dropdown for Logout */}
+          <div className='p-2 border rounded-full bg-slate-100 relative flex justify-center items-center'>
+            <NavDropdown align="end" className='m-0'>
+              <Button className='w-full' onClick={handleLogout}>Đăng xuất</Button>
+            </NavDropdown>
+          </div>
         </div>
+        {showMessageComponent && (
+          <MessageComponent onClose={handleCloseChat} />
+        )}
       </Container>
     </Navbar>
   )

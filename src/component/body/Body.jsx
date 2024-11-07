@@ -2,12 +2,11 @@ import React from 'react'
 import Container from 'react-bootstrap/esm/Container'
 import Article from './Article'
 import Aside from './Aside'
-import "../css/body.scss"
+import "../../css/body.scss"
 
 const Section = ({props}) => {
  
-  const {account} = props
-
+  const account = props.contents.data
   return (
     <Container>
         <div className='row flex body_jsx'>

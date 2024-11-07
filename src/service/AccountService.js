@@ -12,6 +12,8 @@ export const getAboutMe = () => axios.get(REST_API_BASE_URL + "/aboutme")
 
 export const createPoster = (poster) => axios.post(REST_API_BASE_URL + '/poster/createPoster', poster);
 export const getAllPoster = (accountId) => axios.post(REST_API_BASE_URL + '/poster/getAll', accountId)
+export const deletePoster = (posterId) => axios.delete(`${REST_API_BASE_URL}/poster/deletePoster/${posterId}`)
+
 
 export const createLike = (likeDTO) => axios.post(REST_API_BASE_URL + "/poster/like", likeDTO)
 export const getPosterByPosterId = (posterId) => axios.post(REST_API_BASE_URL + "/poster/getByPosterId", posterId)
